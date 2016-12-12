@@ -21,6 +21,22 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+		/* Base element */
+		:root {
+			--base: #ffc600;
+			--spacing: 10px;
+			--blur: 10px;
+		}
+
+		img {
+			padding: var(--spacing);
+			background: var(--base);
+			filter: blur(var(--blur));
+		}
+
+		.highlight {
+			color: var(--base);
+		}
 
     /*
       misc styles, nothing to do with CSS variables
@@ -53,6 +69,17 @@
   </style>
 
   <script>
+
+	const $inputs = document.querySelectorAll('.controls input'); // Returns Nodelist not array (has minimal methods for dealing with arrays)
+
+	function handleUpdate() {
+		var suffix = this.dataset.sizing || ''; // Dataset is a list of data attributes for element
+		document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+	}
+
+	$inputs.forEach(input => input.addEventListener('change', handleUpdate));
+	$inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+
   </script>
 
 </body>
